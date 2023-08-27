@@ -12,11 +12,15 @@ namespace ArdalisRating
     public class RatingEngine
     {
         public decimal Rating { get; set; }
+
+        //add a logger instance
+        public ConsoleLogger Logger { get; set; } = new ConsoleLogger();
+
         public void Rate()
         {
-            Console.WriteLine("Starting rate.");
+            Logger.Log("Starting rate.");
 
-            Console.WriteLine("Loading policy.");
+            Logger.Log("Loading policy.");
 
             // load policy - open file policy.json
             string policyJson = File.ReadAllText("policy.json");
