@@ -16,6 +16,12 @@ namespace ArdalisRating
         //add a logger instance
         public ConsoleLogger Logger { get; set; } = new ConsoleLogger();
 
+        //add a policy source instance
+        public FilePolicySource FilePolicy = new FilePolicySource();
+        
+        //add a policy serializer instance
+        public PolicySerializer PolicySerializer = new PolicySerializer();
+
         public void Rate()
         {
             Logger.Log("Starting rate.");
@@ -23,10 +29,10 @@ namespace ArdalisRating
             Logger.Log("Loading policy.");
 
             // load policy - open file policy.json
-            string policyJson = File.ReadAllText("policy.json");
+            string policyJson = FilePolicy.GetPolicyFromSource();
 
-            var policy = JsonConvert.DeserializeObject<Policy>(policyJson,
-                new StringEnumConverter());
+            // convert policy JSON into a Policy object - use PolicySerializer
+            var policy = PolicySerializer.GetPolicyFromJsonString(policyJson);
 
             switch (policy.Type)
             {
