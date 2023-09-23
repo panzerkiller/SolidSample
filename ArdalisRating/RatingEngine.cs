@@ -39,8 +39,8 @@ namespace ArdalisRating
 
             // create an instance of a rater - use the factory
             var rater = factory.Create(policy, this);
-            rater.Rate(policy);
 
+            rater.Rate(policy);
 
             Logger.Log("Rating completed.");
         }
